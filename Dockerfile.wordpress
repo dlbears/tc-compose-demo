@@ -1,2 +1,5 @@
 # Dockerfile
 FROM wordpress:latest
+
+# Copy the theme from the local machine into the container
+COPY ./mytheme /usr/src/wordpress/wp-content/themes/mytheme

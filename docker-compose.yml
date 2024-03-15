@@ -7,8 +7,9 @@ services:
       dockerfile: Dockerfile.wordpress
     depends_on:
       - db
-    volumes:
-      - ./volumes/wordpress:/var/www/html
+    # If you want to inspect the contents from the local FS
+    # volumes:
+    #   - ./volumes/wordpress:/var/www/html
     ports:
       - 8080:80
     restart: always
