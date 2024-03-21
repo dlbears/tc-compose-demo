@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_REPOSITORY = 'dlbears/tc-wordpress-example'
-        EC2_INSTANCE = '10.24.1.195'
+        EC2_INSTANCE = '10.24.2.140'
     }
 
     stages {
