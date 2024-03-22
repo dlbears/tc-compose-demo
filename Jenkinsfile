@@ -28,8 +28,9 @@ pipeline {
             steps {
                 sshagent(credentials: ['ec2-ssh-credentials']) {
                     sh "rsync -avz --delete . ec2-user@${EC2_INSTANCE}:/home/ec2-user"
-                    sh "ssh ec2-user@${EC2_INSTANCE} 'docker pull ${DOCKERHUB_REPOSITORY}:${env.BUILD_NUMBER}'"
-                    sh "ssh ec2-user@${EC2_INSTANCE} 'docker compose down && docker compose up -d'"
+                }
+                sshagent(credentials: ['ec2-ssh-credentials']) {
+                    sh "ssh ec2-user@${EC2_INSTANCE} 'docker pull ${DOCKERHUB_REPOSITORY}:${env.BUILD_NUMBER} && docker compose down && docker compose up -d'"
                 }
             }
         }
