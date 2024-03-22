@@ -27,7 +27,7 @@ pipeline {
         stage('Deploy to EC2') {
             steps {
                 sshagent(credentials: ['ec2-ssh-credentials']) {
-                    sh "rsync -avz --delete . ec2-user@${EC2_INSTANCE}:/home/ec2-user"
+                    sh 'rsync -avz -e "ssh -o StrictHostKeyChecking=no" --delete . ec2-user@${EC2_INSTANCE}:/home/ec2-user'
                 }
                 sshagent(credentials: ['ec2-ssh-credentials']) {
                     sh "ssh ec2-user@${EC2_INSTANCE} 'docker pull ${DOCKERHUB_REPOSITORY}:${env.BUILD_NUMBER} && docker compose down && docker compose up -d'"
