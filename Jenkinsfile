@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
-                        def customImage = docker.build("${DOCKERHUB_REPOSITORY}")
+                        def customImage = docker.build("${DOCKERHUB_REPOSITORY}", "-f Dockerfile.wordpress .")
                         customImage.push("${env.BUILD_NUMBER}")
                     }
                 }
