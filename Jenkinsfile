@@ -27,10 +27,10 @@ pipeline {
         stage('Deploy to EC2') {
             steps {
                 sshagent(credentials: ['ec2-ssh-credentials']) {
-                    sh "ssh -o StrictHostKeyChecking=no ec2-user@${EC2_INSTANCE} 'docker-compose down'"
+                    sh "ssh -o StrictHostKeyChecking=no ec2-user@${EC2_INSTANCE} 'docker compose down'"
                     sh "rsync -avz --delete . ec2-user@${EC2_INSTANCE}:/path/to/destination"
                     sh "ssh ec2-user@${EC2_INSTANCE} 'docker pull ${DOCKERHUB_REPOSITORY}:${env.BUILD_NUMBER}'"
-                    sh "ssh ec2-user@${EC2_INSTANCE} 'docker-compose up -d'"
+                    sh "ssh ec2-user@${EC2_INSTANCE} 'docker compose up -d'"
                 }
             }
         }
